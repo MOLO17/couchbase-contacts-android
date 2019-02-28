@@ -315,4 +315,18 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+
 # End of https://www.gitignore.io/api/java,kotlin,gradle,android,intellij,androidstudio
