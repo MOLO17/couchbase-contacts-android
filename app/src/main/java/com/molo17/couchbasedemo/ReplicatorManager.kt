@@ -26,6 +26,7 @@ class ReplicatorManager(private val context: Context, remoteUrl: URI): Lifecycle
         val config = try { URLEndpoint(remoteUrl) } catch (e: IllegalArgumentException) { null }
             ?.let { ReplicatorConfiguration(database, it) }
         config?.replicatorType = ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL
+        config?.isContinuous = true
 
         replicator = config?.let(::Replicator) ?: error("ReplicatorConfiguration can not be null")
     }
