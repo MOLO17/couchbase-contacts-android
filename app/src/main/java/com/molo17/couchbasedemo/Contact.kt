@@ -4,7 +4,10 @@ package com.molo17.couchbasedemo
  * Created by Matteo Sist on 28/02/2019.
  */
 
-class Contact(private val map: MutableMap<String, Any?>) {
+class Contact(valuesMap: MutableMap<String, Any?>) {
+
+   private val map = valuesMap.withDefault { null }
+
     var id: String by map
     var name: String? by map
     var surname: String? by map
