@@ -1,6 +1,7 @@
 package com.molo17.couchbasedemo.contactdetail
 
 import android.os.Bundle
+import android.text.Editable
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -34,19 +35,19 @@ class ContactDetailActivity : AppCompatActivity() {
 
         contactId?.let {
             viewModel.getContact(it).observe(this, Observer<Contact> { contact ->
-                nameEditText.setText(contact.name)
-                surnameEditText.setText(contact.surname)
-                phoneNumberEditText.setText(contact.phoneNumber)
-                emailEditText.setText(contact.email)
+                nameEditText.textString = contact.name
+                surnameEditText.textString = contact.surname
+                phoneNumberEditText.textString = contact.phoneNumber
+                emailEditText.textString = contact.email
             })
         }
 
         fab.setOnClickListener {
             contactId?.let {
-                val name = nameEditText.text?.toString()
-                val surname = surnameEditText.text?.toString()
-                val phoneNumber = phoneNumberEditText.text?.toString()
-                val email = emailEditText.text?.toString()
+                val name = nameEditText.textString
+                val surname = surnameEditText.textString
+                val phoneNumber = phoneNumberEditText.textString
+                val email = emailEditText.textString
 
                 viewModel.editContact(it, name, surname, phoneNumber, email) { success ->
                     if (success) {
@@ -59,3 +60,7 @@ class ContactDetailActivity : AppCompatActivity() {
 
     private var contactId: String? = null
 }
+
+var EditText.textString: String?
+    get() = this.text?.takeIf(Editable::isNotBlank)?.toString()
+    set(value) = this.setText(value ?: "")

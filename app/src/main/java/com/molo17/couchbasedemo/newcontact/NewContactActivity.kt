@@ -8,6 +8,7 @@ import androidx.lifecycle.get
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.molo17.couchbasedemo.R
 import com.molo17.couchbasedemo.ViewModelFactory
+import com.molo17.couchbasedemo.contactdetail.textString
 
 class NewContactActivity : AppCompatActivity() {
 
@@ -28,10 +29,10 @@ class NewContactActivity : AppCompatActivity() {
         setContentView(R.layout.activity_new_contact)
 
         fab.setOnClickListener {
-            val name = nameEditText.text?.toString()
-            val surname = surnameEditText.text?.toString()
-            val phoneNumber = phoneNumberEditText.text?.toString()
-            val email = emailEditText.text?.toString()
+            val name = nameEditText.textString
+            val surname = surnameEditText.textString
+            val phoneNumber = phoneNumberEditText.textString
+            val email = emailEditText.textString
 
             viewModel.saveContact(name, surname, phoneNumber, email) { success ->
                 if (success) {
