@@ -2,15 +2,7 @@ package com.molo17.couchbasedemo.newcontact
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.couchbase.lite.CouchbaseLiteException
-import com.couchbase.lite.Database
-import com.couchbase.lite.DatabaseConfiguration
-import com.couchbase.lite.MutableDocument
-import com.molo17.couchbasedemo.Constants
-import com.molo17.couchbasedemo.Constants.type
-import com.molo17.couchbasedemo.Contact
 import com.molo17.couchbasedemo.contacts.Disposable
-import java.util.*
 
 
 
@@ -29,37 +21,45 @@ class NewContactViewModel(val context: Context) : ViewModel() {
     // Public functions
     ///////////////////////////////////////////////////////////////////////////
 
-    fun saveContact(
-        name: String?,
-        surname: String?,
-        phoneNumber: String?,
-        email: String?,
-        callback: (Boolean) -> Unit
-    ) {
-        val contact = Contact(
-            id = UUID.randomUUID().toString(),
-            name = name,
-            surname = surname,
-            phoneNumber = phoneNumber,
-            email = email
-        )
+    /// STEP 20
+    /// View model public function to save Contact to database.
+//    fun saveContact(
+//        name: String?,
+//        surname: String?,
+//        phoneNumber: String?,
+//        email: String?,
+//        callback: (Boolean) -> Unit
+//    ) {
+        /// STEP 21
+        /// Initialize Contact object.
+//        val contact = Contact(
+//            id = UUID.randomUUID().toString(),
+//            name = name,
+//            surname = surname,
+//            phoneNumber = phoneNumber,
+//            email = email
+//        )
+//
+        /// STEP 22
+        /// Serialize Contact object to document and save it.
+//        val doc = MutableDocument(contact.id, contact.toMap())
+//        doc.setString(type, Contact::class.java.simpleName)
+//
+//        try {
+//            database.save(doc)
+//            callback.invoke(true)
+//        } catch (e: CouchbaseLiteException) {
+//            callback.invoke(false)
+//        }
+//
+//    }
 
-        val doc = MutableDocument(contact.id, contact.toMap())
-        doc.setString(type, Contact::class.java.simpleName)
-
-        try {
-            database.save(doc)
-            callback.invoke(true)
-        } catch (e: CouchbaseLiteException) {
-            callback.invoke(false)
-        }
-
-    }
-
-    private val database: Database by lazy {
-        val config = DatabaseConfiguration(context)
-        Database(Constants.dbName, config)
-    }
+    /// STEP 5
+    /// Declare database variable and init it lazily.
+//    private val database: Database by lazy {
+//        val config = DatabaseConfiguration(context)
+//        Database(Constants.dbName, config)
+//    }
 
     private var disposable: Disposable? = null
 }

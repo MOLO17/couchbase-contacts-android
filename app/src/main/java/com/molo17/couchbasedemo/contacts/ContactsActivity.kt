@@ -2,17 +2,12 @@ package com.molo17.couchbasedemo.contacts
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.molo17.couchbasedemo.Constants.CONTACT_ID
-import com.molo17.couchbasedemo.Contact
+import com.molo17.couchbasedemo.Constants
 import com.molo17.couchbasedemo.R
 import com.molo17.couchbasedemo.ViewModelFactory
 import com.molo17.couchbasedemo.contactdetail.ContactDetailActivity
@@ -22,8 +17,10 @@ class ContactsActivity : AppCompatActivity() {
 
     private val factory by lazy { ViewModelFactory(this) }
 
-    private val viewModel: ContactsViewModel
-        get() = ViewModelProviders.of(this, factory).get()
+    /// STEP 2
+    /// Declare viewModel variable and init it lazily
+//    private val viewModel: ContactsViewModel
+//        get() = ViewModelProviders.of(this, factory).get()
 
     private val contactsListAdapter by lazy(::ContactsListRecyclerViewAdapter)
 
@@ -41,31 +38,45 @@ class ContactsActivity : AppCompatActivity() {
             adapter = contactsListAdapter
         }
 
-        contactsListAdapter.onContactClickListener = { contactId ->
-            val intent = Intent(this, ContactDetailActivity::class.java)
-            intent.putExtra(CONTACT_ID,  contactId)
-            startActivity(intent)
-        }
+        contactsListAdapter.onContactClickListener = this::navigateToDetail
 
-        contactsListAdapter.onContactLongClickListener = { contactId ->
-            AlertDialog.Builder(this)
-                .setTitle("Delete")
-                .setMessage("Do you want delete contact?")
-                .setPositiveButton("Yes") { _, _ ->
-                    viewModel.deleteContact(contactId)
-                }
-                .setNegativeButton("No") { _, _ -> }
-                .create()
-                .show()
-        }
+        contactsListAdapter.onContactLongClickListener  = this::deleteContact
 
         fab.setOnClickListener {
             startActivity(Intent(this, NewContactActivity::class.java))
         }
 
-        viewModel.getContacts().observe(this, Observer<List<Contact>> { contacts ->
-            contactsListAdapter.contacts = contacts
-            contactsListAdapter.notifyDataSetChanged()
-        })
+        loadData()
+    }
+
+    /// STEP 9
+    /// LoadData function to allow Activity retrieve contacts list.
+    private fun loadData() {
+//        viewModel.getContacts().observe(this, Observer<List<Contact>> { contacts ->
+//            contactsListAdapter.contacts = contacts
+//            contactsListAdapter.notifyDataSetChanged()
+//        })
+    }
+
+    /// STEP 31
+    /// NavigateTo function to allow navigation from ContactViewController to ContactsDetailViewController.
+    private fun navigateToDetail(contactId: String) {
+        val intent = Intent(this, ContactDetailActivity::class.java)
+        intent.putExtra(Constants.CONTACT_ID, contactId)
+        startActivity(intent)
+    }
+
+    /// STEP 39
+    /// Show confirmation dialog and invoke delete contact function.
+    private fun deleteContact(contactId: String) {
+//        AlertDialog.Builder(this)
+//            .setTitle("Delete")
+//            .setMessage("Do you want delete contact?")
+//            .setPositiveButton("Yes") { _, _ ->
+//                viewModel.deleteContact(contactId)
+//            }
+//            .setNegativeButton("No") { _, _ -> }
+//            .create()
+//            .show()
     }
 }
