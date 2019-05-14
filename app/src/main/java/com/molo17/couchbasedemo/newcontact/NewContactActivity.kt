@@ -18,7 +18,7 @@ class NewContactActivity : AppCompatActivity() {
 
     private val factory by lazy { ViewModelFactory(this) }
 
-    /// STEP 2
+    /// STEP 15
     /// Declare viewModel variable and init it lazily
 //    private val viewModel: NewContactViewModel
 //        get() = ViewModelProviders.of(this, factory).get()
@@ -32,7 +32,7 @@ class NewContactActivity : AppCompatActivity() {
         }
     }
 
-    /// STEP 23
+    /// STEP 20
     /// Retrieve data from the views, check nullability and invoke saveContact function.
     private fun saveButtonPressed() {
 //        val name = nameEditText.textString

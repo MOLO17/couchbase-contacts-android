@@ -28,11 +28,11 @@ class ContactsListRecyclerViewAdapter : RecyclerView.Adapter<ContactsListRecycle
             LayoutInflater.from(parent.context).inflate(R.layout.activity_contact, parent, false)
         return ViewHolder(view).apply {
 
-            /// STEP 32
+            /// STEP 30
             /// Register click action to navigate to detail activity.
 //            itemView.setOnClickListener { onContactClickListener?.invoke(contacts[adapterPosition].id) }
 
-            /// STEP 39
+            /// STEP 37
             /// Register long click action to delete document
 //            itemView.setOnLongClickListener { onContactLongClickListener?.invoke(contacts[adapterPosition].id); true }
         }
@@ -40,7 +40,7 @@ class ContactsListRecyclerViewAdapter : RecyclerView.Adapter<ContactsListRecycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        /// STEP 15
+        /// STEP 14
         /// Retrieve contact from datasource and fill in the fields of cell.
 //        val item = contacts[position]
 //        holder.nameSurname.text = makeNameSurname(item)
@@ -61,7 +61,7 @@ class ContactsListRecyclerViewAdapter : RecyclerView.Adapter<ContactsListRecycle
         val phoneNumber: TextView = view.phoneNumberTextView
     }
 
-    /// STEP 14
+    /// STEP 13
     /// Utilities functions to retrieve phone number and name surname from Contact object.
 //    private fun makeNameSurname(contact: Contact): String {
 //        return listOfNotNull(contact.name, contact.surname).run {

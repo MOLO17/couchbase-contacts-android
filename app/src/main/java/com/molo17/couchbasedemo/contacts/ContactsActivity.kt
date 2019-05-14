@@ -7,10 +7,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.molo17.couchbasedemo.Constants
 import com.molo17.couchbasedemo.R
 import com.molo17.couchbasedemo.ViewModelFactory
-import com.molo17.couchbasedemo.contactdetail.ContactDetailActivity
 import com.molo17.couchbasedemo.newcontact.NewContactActivity
 
 class ContactsActivity : AppCompatActivity() {
@@ -58,15 +56,15 @@ class ContactsActivity : AppCompatActivity() {
 //        })
     }
 
-    /// STEP 31
+    /// STEP 29
     /// NavigateTo function to allow navigation from ContactViewController to ContactsDetailViewController.
     private fun navigateToDetail(contactId: String) {
-        val intent = Intent(this, ContactDetailActivity::class.java)
-        intent.putExtra(Constants.CONTACT_ID, contactId)
-        startActivity(intent)
+//        val intent = Intent(this, ContactDetailActivity::class.java)
+//        intent.putExtra(Constants.CONTACT_ID, contactId)
+//        startActivity(intent)
     }
 
-    /// STEP 39
+    /// STEP 38
     /// Show confirmation dialog and invoke delete contact function.
     private fun deleteContact(contactId: String) {
 //        AlertDialog.Builder(this)

@@ -20,7 +20,7 @@ class ContactsViewModel(val context: Context) : ViewModel() {
     // Public functions
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 4
+    /// STEP 8
     /// Function to retrieve Contacts list.
 //    fun getContacts(): LiveData<List<Contact>> {
 //        return contacts
@@ -30,17 +30,17 @@ class ContactsViewModel(val context: Context) : ViewModel() {
     // Private functions
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 6
+    /// STEP 5
     /// LoadData function to retrieve all contacts from database.
 //    private fun loadContacts() {
-//
-    /// STEP 7
+
+    /// STEP 6
     /// Define database query to retrieve all documents having "Contact" as value of field "type".
 //        val query = QueryBuilder.select(SelectResult.all())
 //            .from(DataSource.database(database))
 //            .where(Expression.property(type).equalTo(Expression.string(Contact::class.java.simpleName)))
-//
-    /// STEP 8
+
+    /// STEP 7
     /// Execute the query and subscribe to every changes of datasource.
     /// Add query and token to a disposable object to unsubscribe when ViewModel will be disposed.
 //        val token = query.addChangeListener { change: QueryChange ->
@@ -49,14 +49,14 @@ class ContactsViewModel(val context: Context) : ViewModel() {
 //        }
 //
 //        disposable = Disposable(query, token)
+
 //    }
 
-    /// STEP 37
+    /// STEP 35
     /// Delete contact function to delete a contact from database with its id.
 //    fun deleteContact(contactId: String) {
-//
-//
-        /// STEP 38
+
+        /// STEP 36
         /// Retrieve document with id, delete it with properly database function and then update datasource.
 //        database.getDocument(contactId)
 //            ?.let(database::delete)
@@ -67,7 +67,7 @@ class ContactsViewModel(val context: Context) : ViewModel() {
     // Private properties
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 3
+    /// STEP 4
     /// Declare contacts array and init it empty.
 //    private val contacts: MutableLiveData<List<Contact>> by lazy {
 //        MutableLiveData<List<Contact>>().also {
@@ -75,7 +75,7 @@ class ContactsViewModel(val context: Context) : ViewModel() {
 //        }
 //    }
 
-    /// STEP 5
+    /// STEP 3
     /// Declare database variable and init it lazily.
 //    private val database: Database by lazy {
 //        val config = DatabaseConfiguration(context)

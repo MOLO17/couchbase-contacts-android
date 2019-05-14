@@ -19,7 +19,7 @@ class ContactDetailActivity : AppCompatActivity() {
 
     private val factory by lazy { ViewModelFactory(this) }
 
-    /// STEP 2
+    /// STEP 22
     /// Declare viewModel variable and init it lazily
 //    private val viewModel: ContactDetailViewModel
 //        get() = ViewModelProviders.of(this, factory).get()
@@ -28,7 +28,7 @@ class ContactDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_detail)
 
-        /// STEP 30
+        /// STEP 28
         /// Check if contactId is nil, otherwise retrieve Contact data using getContactById function, and then fill in the fields.
 //        contactId = intent.getStringExtra(CONTACT_ID)
 //        contactId?.let {
@@ -45,7 +45,7 @@ class ContactDetailActivity : AppCompatActivity() {
         }
     }
 
-    /// STEP 36
+    /// STEP 34
     /// Retrieve data from the views, check nullability and invoke editContact function.
     private fun saveButtonPressed() {
 //        contactId?.let {
@@ -62,7 +62,7 @@ class ContactDetailActivity : AppCompatActivity() {
 //        }
     }
 
-    /// STEP 24
+    /// STEP 21
     /// Declare contactId variable
 //    private var contactId: String? = null
 }

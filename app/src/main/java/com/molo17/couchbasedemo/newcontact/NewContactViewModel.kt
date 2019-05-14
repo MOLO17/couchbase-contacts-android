@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.molo17.couchbasedemo.contacts.Disposable
 
 
-
 /**
  * Created by Matteo Sist on 28/02/2019.
  */
@@ -21,7 +20,7 @@ class NewContactViewModel(val context: Context) : ViewModel() {
     // Public functions
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 20
+    /// STEP 17
     /// View model public function to save Contact to database.
 //    fun saveContact(
 //        name: String?,
@@ -30,7 +29,7 @@ class NewContactViewModel(val context: Context) : ViewModel() {
 //        email: String?,
 //        callback: (Boolean) -> Unit
 //    ) {
-        /// STEP 21
+        /// STEP 18
         /// Initialize Contact object.
 //        val contact = Contact(
 //            id = UUID.randomUUID().toString(),
@@ -39,8 +38,8 @@ class NewContactViewModel(val context: Context) : ViewModel() {
 //            phoneNumber = phoneNumber,
 //            email = email
 //        )
-//
-        /// STEP 22
+
+        /// STEP 19
         /// Serialize Contact object to document and save it.
 //        val doc = MutableDocument(contact.id, contact.toMap())
 //        doc.setString(type, Contact::class.java.simpleName)
@@ -51,10 +50,10 @@ class NewContactViewModel(val context: Context) : ViewModel() {
 //        } catch (e: CouchbaseLiteException) {
 //            callback.invoke(false)
 //        }
-//
+
 //    }
 
-    /// STEP 5
+    /// STEP 16
     /// Declare database variable and init it lazily.
 //    private val database: Database by lazy {
 //        val config = DatabaseConfiguration(context)

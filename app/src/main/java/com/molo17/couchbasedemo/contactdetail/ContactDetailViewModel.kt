@@ -18,14 +18,14 @@ class ContactDetailViewModel(val context: Context) : ViewModel() {
     // Public functions
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 28
+    /// STEP 27
     /// View model public function to retrieve Contact using its id.
 //    fun getContact(contactId: String): LiveData<Contact> {
 //        loadContact(contactId)
 //        return contact
 //    }
 
-    /// STEP 33
+    /// STEP 31
     /// View model public function to edit Contact using its id.
 //    fun editContact(
 //        id: String,
@@ -36,7 +36,7 @@ class ContactDetailViewModel(val context: Context) : ViewModel() {
 //        callback: (Boolean) -> Unit
 //    ) {
 
-    /// STEP 34
+    /// STEP 32
     /// Initialize Contact object.
 //        val contact = Contact(
 //            id = id,
@@ -45,8 +45,8 @@ class ContactDetailViewModel(val context: Context) : ViewModel() {
 //            phoneNumber = phoneNumber,
 //            email = email
 //        )
-//
-    /// STEP 35
+
+    /// STEP 33
     /// Serialize Contact object to document and update it.
 //        val doc = MutableDocument(contact.id, contact.toMap())
 //        doc.setString(Constants.type, Contact::class.java.simpleName)
@@ -57,26 +57,30 @@ class ContactDetailViewModel(val context: Context) : ViewModel() {
 //        } catch (e: CouchbaseLiteException) {
 //            callback.invoke(false)
 //        }
-//
+
 //    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Private properties
     ///////////////////////////////////////////////////////////////////////////
 
-    /// STEP 35
+    /// STEP 24
     /// Declare private contact datasource and init it lazily.
 //    private val contact: MutableLiveData<Contact> by lazy {
 //        MutableLiveData<Contact>()
 //    }
 
-    /// STEP 28
+    /// STEP 25
     /// Private load contact function
 //    private fun loadContact(contactId: String) {
-//        database.getDocument(contactId)?.toMap()?.let(::Contact)?.also(contact::setValue)
+        /// STEP 26
+        /// Retrieve Contact document from database and serialize it to a Contact model.
+//        database.getDocument(contactId)?.toMap()
+//            ?.let(::Contact)
+//            ?.also(contact::setValue)
 //    }
 
-    /// STEP 26
+    /// STEP 23
     /// Declare database variable and init it lazily.
 //    private val database: Database by lazy {
 //        val config = DatabaseConfiguration(context)
