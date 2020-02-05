@@ -1,6 +1,7 @@
 package com.molo17.couchbasedemo.ui.contactdetail
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.viewModels
@@ -31,6 +32,7 @@ class ContactDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact_detail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         viewModel.getContact().observe(this, Observer<Contact> { contact ->
             nameEditText.textString = contact.name
@@ -42,6 +44,14 @@ class ContactDetailActivity : AppCompatActivity() {
         fab.setOnClickListener {
             saveButtonPressed()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun saveButtonPressed() {
