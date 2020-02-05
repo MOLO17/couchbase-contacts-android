@@ -59,12 +59,12 @@ class ContactsActivity : AppCompatActivity() {
 
     private fun deleteContact(contactId: String) {
         AlertDialog.Builder(this)
-            .setTitle("Delete")
-            .setMessage("Do you want delete contact?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle(getString(R.string.delete_dialog_title))
+            .setMessage(getString(R.string.delete_dialog_message))
+            .setPositiveButton(getString(R.string.delete_dialog_positive_button)) { _, _ ->
                 viewModel.deleteContact(contactId)
             }
-            .setNegativeButton("No") { _, _ -> }
+            .setNegativeButton(getString(R.string.delete_dialog_negative_button)) { _, _ -> }
             .create()
             .show()
     }
