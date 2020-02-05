@@ -1,32 +1,27 @@
 package com.molo17.couchbasedemo.data
 
-import com.couchbase.lite.CouchbaseLiteException
-import com.couchbase.lite.DataSource
-import com.couchbase.lite.Database
-import com.couchbase.lite.DatabaseConfiguration
-import com.couchbase.lite.Expression
-import com.couchbase.lite.MutableDocument
-import com.couchbase.lite.QueryBuilder
-import com.couchbase.lite.QueryChange
-import com.couchbase.lite.SelectResult
+import com.couchbase.lite.*
+import com.molo17.couchbasedemo.BuildConfig
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import java.net.URI
 
 /**
  * Created by Damiano Giusti on 2020-02-05.
  */
-class CouchbaseContactsRepository : ContactsRepository {
+object CouchbaseContactsRepository : ContactsRepository, SyncManager {
 
-    companion object {
-        const val databaseName = "CouchbaseDemo.db"
-        const val type = "type"
-        const val contactType = "Contact"
-    }
+    private const val databaseName = "CouchbaseDemo.db"
+    private const val type = "type"
+    private const val contactType = "Contact"
 
     private val database: Database by lazy {
         val config = DatabaseConfiguration()
         Database(databaseName, config)
     }
+
+    private var replicator: Replicator? = null
+    private var replicatorToken: ListenerToken? = null
 
     override fun getAllContacts(): Flow<List<Contact>> = callbackFlow {
         val query = QueryBuilder.select(SelectResult.all())
@@ -65,6 +60,26 @@ class CouchbaseContactsRepository : ContactsRepository {
 
     override suspend fun deleteContact(contactId: String) {
         database.getDocument(contactId)?.let(database::delete) ?: throw NoSuchContactException()
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // SyncManager
+    ///////////////////////////////////////////////////////////////////////////
+
+    override fun startSync() {
+        val config = ReplicatorConfiguration(database, URLEndpoint(URI.create(BuildConfig.SYNC_URL)))
+        config.isContinuous = true
+        config.authenticator = BasicAuthenticator(BuildConfig.SYNC_USERNAME, BuildConfig.SYNC_PASSWORD)
+        ReplicatorTypeHelper.setReplicatorType(config, true, true)
+
+        replicator = Replicator(config)
+        replicator?.start()
+    }
+
+    override fun stopSync() {
+        replicatorToken?.also { replicator?.removeChangeListener(it) }
+        replicator?.stop()
+        replicator = null
     }
 }
 

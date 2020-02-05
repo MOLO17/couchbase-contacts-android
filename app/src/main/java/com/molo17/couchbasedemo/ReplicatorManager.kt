@@ -1,60 +1,22 @@
 package com.molo17.couchbasedemo
 
-import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.couchbase.lite.*
-import java.net.URI
-
+import com.molo17.couchbasedemo.data.SyncManager
 
 /**
- * Created by Matteo Sist on 01/03/2019.
+ * Created by Damiano Giusti on 2020-02-05.
  */
-class ReplicatorManager(private val context: Context, remoteUrl: URI): LifecycleObserver {
+class SyncLifecycleObserver(private val syncManager: SyncManager) : LifecycleObserver {
 
-    /// STEP 41
-    /// Declare replication variable.
-    private val replicator: Replicator
-
-    /// STEP 40
-    /// Declare database variable and init it lazily.
-    private val database: Database by lazy {
-        val config = DatabaseConfiguration(context)
-        Database(Constants.dbName, config)
-    }
-
-    private var token: ListenerToken? = null
-
-    init {
-        /// STEP 42
-        /// Declare and init replicator with a remote url, a replicator type, continuous option enable or not and a basic authentication.
-        val config = try { URLEndpoint(remoteUrl) } catch (e: IllegalArgumentException) { null }
-            ?.let { ReplicatorConfiguration(database, it) }
-        config?.replicatorType = ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL
-        config?.isContinuous = true
-
-        replicator = config?.let(::Replicator) ?: error("ReplicatorConfiguration can not be null")
-    }
-
-    /// STEP 43
-    /// Start replication function. Register a listener to listen replication status and start the replication.
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun startReplication() {
-        token = replicator.addChangeListener { listener ->
-            listener.status.error?.let(::print)
-        }
-        replicator.start()
+    fun onStart() {
+        syncManager.startSync()
     }
 
-    /// STEP 44
-    /// Stop replication function. Deregister the replication status listener and stop the replication.
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun stopReplication() {
-        token?.let(replicator::removeChangeListener)
-        replicator.stop()
+    fun onStop() {
+        syncManager.stopSync()
     }
-
-
-
 }
