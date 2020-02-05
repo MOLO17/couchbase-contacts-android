@@ -23,7 +23,7 @@ class NewContactActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_new_contact)
+        setContentView(R.layout.activity_contact_detail)
 
         fab.setOnClickListener { saveButtonPressed() }
     }
