@@ -9,7 +9,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
         <activity android:name="com.molo17.couchbasedemo.ui.contactdetail.ContactDetailActivity"></activity>
         <activity android:name="com.molo17.couchbasedemo.ui.newcontact.NewContactActivity" />
         <activity android:name="com.molo17.couchbasedemo.ui.contacts.ContactsActivity">

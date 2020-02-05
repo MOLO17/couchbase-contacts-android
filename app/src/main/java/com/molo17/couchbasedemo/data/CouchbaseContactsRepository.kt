@@ -2,6 +2,7 @@ package com.molo17.couchbasedemo.data
 
 import com.couchbase.lite.*
 import com.molo17.couchbasedemo.BuildConfig
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import java.net.URI
@@ -40,7 +41,9 @@ object CouchbaseContactsRepository : ContactsRepository, SyncManager {
             }
         }
 
-        invokeOnClose { query.removeChangeListener(token) }
+        awaitClose {
+            query.removeChangeListener(token)
+        }
     }
 
     override suspend fun getContact(contactId: String): Contact {
