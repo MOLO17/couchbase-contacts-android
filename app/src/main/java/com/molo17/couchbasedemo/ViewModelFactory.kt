@@ -1,29 +1,46 @@
 package com.molo17.couchbasedemo
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.molo17.couchbasedemo.contactdetail.ContactDetailViewModel
-import com.molo17.couchbasedemo.contacts.ContactsViewModel
-import com.molo17.couchbasedemo.newcontact.NewContactViewModel
+import com.molo17.couchbasedemo.data.ContactsRepository
+import com.molo17.couchbasedemo.data.CouchbaseContactsRepository
+import com.molo17.couchbasedemo.ui.contactdetail.ContactDetailType
+import com.molo17.couchbasedemo.ui.contactdetail.ContactDetailViewModel
+import com.molo17.couchbasedemo.ui.contacts.ContactsViewModel
 
 /**
- * Created by Matteo Sist on 28/02/2019.
+ * Factory for creating [ViewModel] instances.
  */
-class ViewModelFactory(val context: Context): ViewModelProvider.Factory {
+class ViewModelFactory : CommonViewModelFactory()
+
+/**
+ * Factory that is specifically intended for creating [ContactDetailViewModel] instances.
+ */
+fun ContactDetailFactory(contactDetailTypeProvider: () -> ContactDetailType): () -> ViewModelProvider.Factory = {
+    object : CommonViewModelFactory() {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return when (modelClass) {
+                ContactDetailViewModel::class.java -> ContactDetailViewModel(
+                    contactDetailType = contactDetailTypeProvider(),
+                    contactsRepository = contactsRepository
+                ) as T
+                else -> super.create(modelClass)
+            }
+        }
+    }
+}
+
+/**
+ * Factory that contains the base definitions of the app's ViewModels.
+ */
+abstract class CommonViewModelFactory : ViewModelProvider.Factory {
+
+    protected val contactsRepository: ContactsRepository = CouchbaseContactsRepository
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return when (modelClass) {
-            ContactsViewModel::class.java -> ContactsViewModel(
-                context.applicationContext
-            )
-            NewContactViewModel::class.java -> NewContactViewModel(
-                context.applicationContext
-            )
-            ContactDetailViewModel::class.java -> ContactDetailViewModel(
-                context.applicationContext
-            )
-            else -> error("Wrong cast")
+            ContactsViewModel::class.java -> ContactsViewModel(contactsRepository)
+            else -> error("Unhandled ViewModel of type ${modelClass.simpleName}")
         } as T
     }
 }
