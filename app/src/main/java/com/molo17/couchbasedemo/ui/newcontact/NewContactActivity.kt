@@ -1,11 +1,14 @@
-package com.molo17.couchbasedemo.newcontact
+package com.molo17.couchbasedemo.ui.newcontact
 
 import android.os.Bundle
 import android.widget.EditText
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.molo17.couchbasedemo.ContactDetailFactory
 import com.molo17.couchbasedemo.R
-import com.molo17.couchbasedemo.ViewModelFactory
+import com.molo17.couchbasedemo.ui.contactdetail.ContactDetailType
+import com.molo17.couchbasedemo.ui.contactdetail.ContactDetailViewModel
 
 class NewContactActivity : AppCompatActivity() {
 
@@ -16,34 +19,22 @@ class NewContactActivity : AppCompatActivity() {
     private val phoneNumberEditText: EditText by lazy { findViewById<EditText>(R.id.phoneNumberEditText) }
     private val emailEditText: EditText by lazy { findViewById<EditText>(R.id.emailEditText) }
 
-    private val factory by lazy { ViewModelFactory(this) }
-
-    /// STEP 15
-    /// Declare viewModel variable and init it lazily
-//    private val viewModel: NewContactViewModel
-//        get() = ViewModelProviders.of(this, factory).get()
+    private val viewModel: ContactDetailViewModel by viewModels(ContactDetailFactory { ContactDetailType.Create })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_contact)
 
-        fab.setOnClickListener {
-            saveButtonPressed()
-        }
+        fab.setOnClickListener { saveButtonPressed() }
     }
 
-    /// STEP 20
-    /// Retrieve data from the views, check nullability and invoke saveContact function.
     private fun saveButtonPressed() {
-//        val name = nameEditText.textString
-//        val surname = surnameEditText.textString
-//        val phoneNumber = phoneNumberEditText.textString
-//        val email = emailEditText.textString
-//
-//        viewModel.saveContact(name, surname, phoneNumber, email) { success ->
-//            if (success) {
-//                onBackPressed()
-//            }
-//        }
+        viewModel.saveContact(
+            name = nameEditText.text?.toString(),
+            surname = surnameEditText.text?.toString(),
+            phoneNumber = phoneNumberEditText.text?.toString(),
+            email = emailEditText.text?.toString(),
+            callback = this::finish
+        )
     }
 }

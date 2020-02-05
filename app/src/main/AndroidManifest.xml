@@ -10,9 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".contactdetail.ContactDetailActivity"></activity>
-        <activity android:name=".newcontact.NewContactActivity" />
-        <activity android:name=".contacts.ContactsActivity">
+        <activity android:name="com.molo17.couchbasedemo.ui.contactdetail.ContactDetailActivity"></activity>
+        <activity android:name="com.molo17.couchbasedemo.ui.newcontact.NewContactActivity" />
+        <activity android:name="com.molo17.couchbasedemo.ui.contacts.ContactsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
