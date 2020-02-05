@@ -9,13 +9,14 @@ import com.molo17.couchbasedemo.ui.contactdetail.ContactDetailViewModel
 import com.molo17.couchbasedemo.ui.contacts.ContactsViewModel
 
 /**
- * Created by Damiano Giusti on 2020-02-05.
+ * Factory for creating [ViewModel] instances.
  */
 class ViewModelFactory : CommonViewModelFactory()
 
-fun ContactDetailFactory(
-    contactDetailTypeProvider: () -> ContactDetailType
-): () -> ViewModelProvider.Factory = {
+/**
+ * Factory that is specifically intended for creating [ContactDetailViewModel] instances.
+ */
+fun ContactDetailFactory(contactDetailTypeProvider: () -> ContactDetailType): () -> ViewModelProvider.Factory = {
     object : CommonViewModelFactory() {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return when (modelClass) {
@@ -29,6 +30,9 @@ fun ContactDetailFactory(
     }
 }
 
+/**
+ * Factory that contains the base definitions of the app's ViewModels.
+ */
 abstract class CommonViewModelFactory : ViewModelProvider.Factory {
 
     protected val contactsRepository: ContactsRepository = CouchbaseContactsRepository
